@@ -1,0 +1,1073 @@
+body {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    min-height: 100vh;
+    color: #162033;
+    background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), transparent 32%),
+        radial-gradient(circle at top right, rgba(14, 165, 233, 0.14), transparent 28%),
+        linear-gradient(180deg, #f7fbff 0%, #eef4fb 100%);
+}
+
+body.theme-admin {
+    background:
+        radial-gradient(circle at top left, rgba(251, 191, 36, 0.18), transparent 30%),
+        radial-gradient(circle at top right, rgba(249, 115, 22, 0.12), transparent 30%),
+        linear-gradient(180deg, #fffaf2 0%, #f5f7fb 100%);
+}
+
+body.theme-teacher {
+    background:
+        radial-gradient(circle at top left, rgba(16, 185, 129, 0.16), transparent 30%),
+        radial-gradient(circle at top right, rgba(14, 165, 233, 0.12), transparent 30%),
+        linear-gradient(180deg, #f3fffb 0%, #eef7fb 100%);
+}
+
+body.theme-student {
+    background:
+        radial-gradient(circle at top left, rgba(99, 102, 241, 0.18), transparent 32%),
+        radial-gradient(circle at top right, rgba(236, 72, 153, 0.10), transparent 26%),
+        linear-gradient(180deg, #f8f8ff 0%, #eef3ff 100%);
+}
+
+body.auth-scene {
+    background:
+        linear-gradient(rgba(8, 18, 32, 0.58), rgba(8, 18, 32, 0.44)),
+        url('/static/images/face-login-bg.jpg') center center / cover fixed no-repeat;
+}
+
+body.auth-scene .app-shell {
+    background: linear-gradient(180deg, rgba(7, 12, 23, 0.35), rgba(7, 12, 23, 0.2));
+    min-height: 100vh;
+}
+
+.app-navbar {
+    background: linear-gradient(135deg, #102347, #1f4db8);
+    box-shadow: 0 16px 40px rgba(16, 35, 71, 0.18);
+}
+
+.brand-mark {
+    color: #fff;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.nav-pillset {
+    gap: 0.65rem;
+}
+
+.btn-nav {
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.btn-nav:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.greeting-chip,
+.clock-chip,
+.role-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.11);
+    font-size: 0.84rem;
+}
+
+.app-alert {
+    border: 0;
+    border-radius: 1rem;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.hero-card,
+.panel-card,
+.stat-card,
+.login-card,
+.role-card,
+.warning-panel {
+    border: 0;
+    border-radius: 1.4rem;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+    backdrop-filter: blur(8px);
+}
+
+.hero-card {
+    color: #fff;
+    background: linear-gradient(145deg, #102347, #2258cf 58%, #5fa4ff);
+}
+
+.login-hero-overlay {
+    position: relative;
+    overflow: hidden;
+}
+
+.login-hero-overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.2), transparent 22%),
+        radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.12), transparent 18%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent 55%);
+    pointer-events: none;
+}
+
+.hero-card.admin-hero {
+    background: linear-gradient(145deg, #5b2a00, #c97c09 60%, #ffd375);
+}
+
+.hero-card.teacher-hero {
+    background: linear-gradient(145deg, #054c3d, #139772 58%, #66d7ba);
+}
+
+.hero-card.student-hero {
+    background: linear-gradient(145deg, #30205f, #5865f2 55%, #9fb4ff);
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+}
+
+.hero-chip {
+    padding: 1rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.hero-chip strong,
+.hero-chip span {
+    display: block;
+}
+
+.page-kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.77rem;
+    font-weight: 700;
+    opacity: 0.8;
+}
+
+.panel-card .card-header,
+.stat-card .card-body,
+.login-card .card-body,
+.role-card .card-body {
+    background: transparent;
+}
+
+.panel-card .card-header,
+.warning-panel {
+    padding: 1.1rem 1.25rem 0.85rem;
+}
+
+.panel-card .card-header {
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    border-top-left-radius: 1.4rem;
+    border-top-right-radius: 1.4rem;
+}
+
+.panel-card .card-body,
+.role-card .card-body,
+.login-card .card-body {
+    padding: 1.25rem;
+}
+
+.warning-panel {
+    background: linear-gradient(135deg, rgba(255, 237, 213, 0.98), rgba(254, 215, 170, 0.96));
+    border: 1px solid rgba(234, 88, 12, 0.18);
+}
+
+.warning-count {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(194, 65, 12, 0.12);
+    color: #9a3412;
+    font-weight: 700;
+}
+
+.warning-row td {
+    background: rgba(251, 191, 36, 0.12);
+}
+
+.admin-sidebar {
+    position: sticky;
+    top: 1.5rem;
+    padding: 1rem;
+}
+
+.admin-sidebar-head {
+    padding: 0.5rem 0.35rem 1rem;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    margin-bottom: 1rem;
+}
+
+.admin-nav-link {
+    display: block;
+    padding: 0.9rem 1rem;
+    border-radius: 0.95rem;
+    color: #24314d;
+    text-decoration: none;
+    background: #f8fafc;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    font-weight: 600;
+}
+
+.admin-nav-link:hover,
+.admin-nav-link.active {
+    background: linear-gradient(135deg, #b45309, #f59e0b);
+    color: #fff;
+    border-color: transparent;
+}
+
+.stat-card {
+    overflow: hidden;
+    position: relative;
+}
+
+.stat-card::after {
+    content: "";
+    position: absolute;
+    inset: auto -18px -18px auto;
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: rgba(37, 99, 235, 0.08);
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.25rem;
+}
+
+.stat-label {
+    color: #5b6477;
+    margin: 0;
+}
+
+.role-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.role-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 46px rgba(15, 23, 42, 0.12);
+}
+
+.role-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    font-weight: 800;
+    color: #fff;
+}
+
+.role-badge.admin { background: linear-gradient(135deg, #b45309, #f59e0b); }
+.role-badge.teacher { background: linear-gradient(135deg, #047857, #10b981); }
+.role-badge.student { background: linear-gradient(135deg, #4338ca, #6366f1); }
+
+.login-shell {
+    min-height: calc(100vh - 140px);
+    display: grid;
+    place-items: center;
+}
+
+.login-card {
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+.login-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.84rem;
+    font-weight: 700;
+    padding: 0.5rem 0.8rem;
+    border-radius: 999px;
+    background: #eef4ff;
+    color: #2852bf;
+}
+
+.quick-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.quick-link {
+    padding: 0.9rem 1rem;
+    border-radius: 1rem;
+    text-decoration: none;
+    color: #172033;
+    background: #f7f9fd;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.form-control,
+.form-select {
+    border-radius: 0.95rem;
+    padding: 0.8rem 0.95rem;
+    border: 1px solid rgba(15, 23, 42, 0.11);
+}
+
+.table thead th {
+    border-bottom-width: 1px;
+    color: #586072;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background: rgba(37, 99, 235, 0.035);
+}
+
+.metric-ring {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: conic-gradient(#4f46e5 var(--value), #e8ecf8 0deg);
+    margin: 0 auto;
+}
+
+.metric-ring::before {
+    content: "";
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: #fff;
+}
+
+.metric-ring span {
+    position: absolute;
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+.webcam-frame {
+    width: 100%;
+    min-height: 340px;
+    border-radius: 1.2rem;
+    background: linear-gradient(145deg, #d7f7ee, #dbeafe);
+    object-fit: cover;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.result-box {
+    white-space: pre-wrap;
+    background: #0f172a;
+    color: #dbeafe;
+    border-radius: 1rem;
+    padding: 1rem;
+    min-height: 160px;
+}
+
+.day-section-header {
+    padding: 0.95rem 1.2rem;
+    border-radius: 1rem 1rem 0 0;
+    color: #fff;
+    margin-bottom: 0;
+}
+
+.day-count {
+    font-size: 0.84rem;
+    font-weight: 700;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.day-table-card {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.day-section.monday .day-section-header { background: linear-gradient(135deg, #2563eb, #60a5fa); }
+.day-section.tuesday .day-section-header { background: linear-gradient(135deg, #7c3aed, #a78bfa); }
+.day-section.wednesday .day-section-header { background: linear-gradient(135deg, #059669, #34d399); }
+.day-section.thursday .day-section-header { background: linear-gradient(135deg, #ea580c, #fb923c); }
+.day-section.friday .day-section-header { background: linear-gradient(135deg, #db2777, #f472b6); }
+.day-section.saturday .day-section-header { background: linear-gradient(135deg, #0891b2, #67e8f9); }
+.day-section.sunday .day-section-header { background: linear-gradient(135deg, #4b5563, #9ca3af); }
+
+.accent-admin { color: #b45309; }
+.accent-teacher { color: #047857; }
+.accent-student { color: #4338ca; }
+
+.chart-wrap {
+    position: relative;
+    min-height: 320px;
+}
+
+.empty-state {
+    padding: 2rem;
+    text-align: center;
+    color: #6b7280;
+}
+
+@media (max-width: 991px) {
+    .nav-pillset {
+        margin-top: 1rem;
+    }
+
+    .login-shell {
+        min-height: auto;
+    }
+
+    body.auth-scene {
+        background-attachment: scroll;
+    }
+
+    .admin-sidebar {
+        position: static;
+    }
+}
+
+.timetable-matrix-wrap {
+    overflow: hidden;
+}
+
+.timetable-matrix th,
+.timetable-matrix td {
+    min-width: 180px;
+    vertical-align: top;
+}
+
+.timetable-matrix .day-header {
+    min-width: 130px;
+    background: #f8fafc;
+    font-weight: 700;
+}
+
+.matrix-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.85rem;
+    border-radius: 0.9rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12);
+}
+
+.matrix-card strong,
+.matrix-card span,
+.matrix-card small {
+    display: block;
+}
+
+.matrix-card.monday { background: linear-gradient(135deg, #2563eb, #60a5fa); }
+.matrix-card.tuesday { background: linear-gradient(135deg, #7c3aed, #a78bfa); }
+.matrix-card.wednesday { background: linear-gradient(135deg, #059669, #34d399); }
+.matrix-card.thursday { background: linear-gradient(135deg, #ea580c, #fb923c); }
+.matrix-card.friday { background: linear-gradient(135deg, #db2777, #f472b6); }
+.matrix-card.saturday { background: linear-gradient(135deg, #0891b2, #67e8f9); }
+.matrix-card.sunday { background: linear-gradient(135deg, #4b5563, #9ca3af); }
+
+.matrix-empty {
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+.greeting-chip {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.camera-stage {
+    position: relative;
+    width: 100%;
+}
+
+.attendance-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    border-radius: 1.2rem;
+}
+
+.camera-stage-lg {
+    max-width: 100%;
+}
+
+.webcam-frame-lg {
+    min-height: 560px;
+}
+
+@media (max-width: 991px) {
+    .webcam-frame-lg {
+        min-height: 420px;
+    }
+}
+/* 🔥 Fix logo size in admin dashboard */
+.dashboard-logo-preview {
+    width: 100px;        /* change this to control size */
+    height: 100px;       /* keeps it neat */
+    object-fit: contain; /* prevents stretching */
+    border-radius: 12px; /* optional: nice rounded look */
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    padding: 4px;
+    background: #fff;
+}
+.dashboard-logo-preview {
+    display: block;
+    margin-left: auto;
+}
+.dashboard-logo-preview {
+    width: 100px !important;
+    height: 100px !important;
+    object-fit: contain !important;
+}
+/* 🔥 Fix BIG header logo */
+.hero-card img {
+    max-width: 200px !important;
+    height: auto !important;
+    display: block;
+    margin: 20px auto;
+}
+/* 🔥 Fix navbar logo size */
+.brand-logo {
+    width: 50px !important;   /* adjust size here */
+    height: 50px !important;
+    object-fit: contain;
+}
+.password-toggle-group .form-control {
+    border-right: 0;
+}
+
+.password-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-width: 96px;
+    justify-content: center;
+    border-color: rgba(15, 23, 42, 0.11);
+    background: #f8fafc;
+}
+
+.password-toggle-btn:hover,
+.password-toggle-btn:focus {
+    background: #eef2ff;
+    border-color: rgba(37, 99, 235, 0.2);
+}
+
+.password-toggle-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+:root {
+    color-scheme: light;
+    --app-text: #162033;
+    --app-text-muted: #5b6477;
+    --app-surface: rgba(255, 255, 255, 0.88);
+    --app-surface-strong: #ffffff;
+    --app-surface-soft: #f7f9fd;
+    --app-border: rgba(15, 23, 42, 0.08);
+    --app-field-bg: rgba(255, 255, 255, 0.95);
+    --app-field-border: rgba(15, 23, 42, 0.11);
+    --app-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+    --app-shadow-soft: 0 10px 24px rgba(15, 23, 42, 0.08);
+    --app-table-hover: rgba(37, 99, 235, 0.035);
+    --app-navbar: linear-gradient(135deg, #102347, #1f4db8);
+    --theme-toggle-bg: rgba(255, 255, 255, 0.08);
+    --theme-toggle-border: rgba(255, 255, 255, 0.22);
+    --theme-toggle-text: #ffffff;
+    --theme-toggle-hover: rgba(255, 255, 255, 0.16);
+}
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --app-text: #e7edf8;
+    --app-text-muted: #a9b6cf;
+    --app-surface: rgba(8, 16, 29, 0.88);
+    --app-surface-strong: #0d1728;
+    --app-surface-soft: rgba(12, 23, 40, 0.92);
+    --app-border: rgba(148, 163, 184, 0.16);
+    --app-field-bg: rgba(11, 19, 34, 0.94);
+    --app-field-border: rgba(148, 163, 184, 0.18);
+    --app-shadow: 0 18px 45px rgba(2, 8, 23, 0.42);
+    --app-shadow-soft: 0 10px 24px rgba(2, 8, 23, 0.34);
+    --app-table-hover: rgba(96, 165, 250, 0.08);
+    --app-navbar: linear-gradient(135deg, #08111f, #10284f);
+    --theme-toggle-bg: rgba(255, 255, 255, 0.08);
+    --theme-toggle-border: rgba(255, 255, 255, 0.16);
+    --theme-toggle-text: #eff6ff;
+    --theme-toggle-hover: rgba(255, 255, 255, 0.14);
+}
+
+body {
+    color: var(--app-text);
+}
+
+:root[data-theme="dark"] body {
+    background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 30%),
+        radial-gradient(circle at top right, rgba(45, 212, 191, 0.10), transparent 26%),
+        linear-gradient(180deg, #08111f 0%, #0c1728 100%);
+}
+
+:root[data-theme="dark"] body.theme-admin {
+    background:
+        radial-gradient(circle at top left, rgba(245, 158, 11, 0.16), transparent 26%),
+        radial-gradient(circle at top right, rgba(234, 88, 12, 0.12), transparent 24%),
+        linear-gradient(180deg, #14100a 0%, #111827 100%);
+}
+
+:root[data-theme="dark"] body.theme-teacher {
+    background:
+        radial-gradient(circle at top left, rgba(16, 185, 129, 0.16), transparent 28%),
+        radial-gradient(circle at top right, rgba(34, 197, 94, 0.08), transparent 22%),
+        linear-gradient(180deg, #071710 0%, #0a1320 100%);
+}
+
+:root[data-theme="dark"] body.theme-student {
+    background:
+        radial-gradient(circle at top left, rgba(99, 102, 241, 0.16), transparent 30%),
+        radial-gradient(circle at top right, rgba(236, 72, 153, 0.12), transparent 24%),
+        linear-gradient(180deg, #120d1d 0%, #0a1320 100%);
+}
+
+:root[data-theme="dark"] body.auth-scene {
+    background:
+        linear-gradient(rgba(2, 6, 23, 0.74), rgba(2, 6, 23, 0.66)),
+        url('/static/images/face-login-bg.jpg') center center / cover fixed no-repeat;
+}
+
+.app-navbar {
+    background: var(--app-navbar);
+}
+
+.theme-toggle-btn {
+    color: var(--theme-toggle-text);
+    border: 1px solid var(--theme-toggle-border);
+    background: var(--theme-toggle-bg);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    border-radius: 999px;
+    padding: 0.5rem 0.9rem;
+    font-weight: 600;
+}
+
+.theme-toggle-btn:hover,
+.theme-toggle-btn:focus {
+    color: var(--theme-toggle-text);
+    background: var(--theme-toggle-hover);
+}
+
+.brand-logo-fallback {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+}
+
+.brand-subtext {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.hero-card,
+.panel-card,
+.stat-card,
+.login-card,
+.role-card,
+.warning-panel,
+.admin-nav-link,
+.quick-link,
+.dashboard-logo-preview {
+    border-color: var(--app-border);
+}
+
+.hero-card,
+.panel-card,
+.stat-card,
+.login-card,
+.role-card,
+.warning-panel {
+    background: var(--app-surface);
+    box-shadow: var(--app-shadow);
+}
+
+.panel-card .card-header,
+.admin-sidebar-head,
+.table,
+.table thead th,
+.table td,
+.table th {
+    border-color: var(--app-border);
+}
+
+.form-control,
+.form-select,
+.password-toggle-btn,
+.admin-nav-link,
+.quick-link,
+.dashboard-logo-preview {
+    background: var(--app-surface-soft);
+    color: var(--app-text);
+    border-color: var(--app-field-border);
+}
+
+.form-control::placeholder {
+    color: var(--app-text-muted);
+}
+
+.form-control:focus,
+.form-select:focus,
+.password-toggle-btn:focus {
+    background: var(--app-field-bg);
+    color: var(--app-text);
+}
+
+.text-muted,
+.stat-label,
+.empty-state,
+.matrix-empty,
+.table thead th,
+.form-text {
+    color: var(--app-text-muted) !important;
+}
+
+.table {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--app-text);
+    --bs-table-border-color: var(--app-border);
+}
+
+.table tbody tr:hover {
+    background: var(--app-table-hover);
+}
+
+:root[data-theme="dark"] .warning-panel {
+    background: linear-gradient(135deg, rgba(69, 26, 3, 0.94), rgba(124, 45, 18, 0.9));
+    border-color: rgba(251, 146, 60, 0.28);
+}
+
+:root[data-theme="dark"] .warning-count {
+    color: #fed7aa;
+    background: rgba(249, 115, 22, 0.18);
+}
+
+:root[data-theme="dark"] .warning-row td {
+    background: rgba(245, 158, 11, 0.12);
+}
+
+:root[data-theme="dark"] .result-box {
+    background: #020817;
+    color: #dbeafe;
+}
+
+:root[data-theme="dark"] .metric-ring {
+    background: conic-gradient(#4f46e5 var(--value), #1f2c45 0deg);
+}
+
+:root[data-theme="dark"] .metric-ring::before {
+    background: #091321;
+}
+
+/* Light-mode readability fixes */
+.panel-card,
+.stat-card,
+.login-card,
+.role-card,
+.warning-panel {
+    background: var(--app-surface);
+    box-shadow: var(--app-shadow);
+}
+
+.hero-card {
+    color: #ffffff;
+    background: linear-gradient(145deg, #102347, #2258cf 58%, #5fa4ff);
+    box-shadow: var(--app-shadow);
+}
+
+.hero-card.admin-hero {
+    background: linear-gradient(145deg, #5b2a00, #c97c09 60%, #ffd375);
+}
+
+.hero-card.teacher-hero {
+    background: linear-gradient(145deg, #054c3d, #139772 58%, #66d7ba);
+}
+
+.hero-card.student-hero {
+    background: linear-gradient(145deg, #30205f, #5865f2 55%, #9fb4ff);
+}
+
+:root[data-theme="dark"] .hero-card {
+    color: #ffffff;
+    background: linear-gradient(145deg, #102347, #2258cf 58%, #5fa4ff);
+}
+
+:root[data-theme="dark"] .hero-card.admin-hero {
+    background: linear-gradient(145deg, #5b2a00, #c97c09 60%, #ffd375);
+}
+
+:root[data-theme="dark"] .hero-card.teacher-hero {
+    background: linear-gradient(145deg, #054c3d, #139772 58%, #66d7ba);
+}
+
+:root[data-theme="dark"] .hero-card.student-hero {
+    background: linear-gradient(145deg, #30205f, #5865f2 55%, #9fb4ff);
+}
+
+.quick-link,
+.admin-nav-link,
+.panel-card,
+.stat-card,
+.login-card,
+.role-card,
+.warning-panel,
+.table,
+.table td,
+.table th,
+.card-header,
+.empty-state,
+.form-label,
+.form-text {
+    color: var(--app-text);
+}
+
+.btn-outline-light {
+    color: #ffffff;
+}
+
+/* Timetable-specific theme fixes */
+.timetable-matrix-wrap {
+    overflow: auto;
+}
+
+.timetable-matrix {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--app-text);
+    min-width: 980px;
+}
+
+.timetable-matrix thead th {
+    background: var(--app-surface-strong);
+    color: var(--app-text);
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.timetable-matrix td,
+.timetable-matrix th {
+    background: transparent;
+    min-width: 170px;
+    vertical-align: top;
+}
+
+.timetable-matrix .day-header {
+    min-width: 140px;
+    background: var(--app-surface-strong);
+    color: var(--app-text);
+    font-weight: 700;
+}
+
+.timetable-matrix .break-header {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.18), rgba(251, 191, 36, 0.26));
+}
+
+.break-cell {
+    background: linear-gradient(180deg, rgba(245, 158, 11, 0.08), rgba(251, 191, 36, 0.04));
+}
+
+.break-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.55rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(245, 158, 11, 0.16);
+    color: #9a3412 !important;
+    font-weight: 700;
+}
+
+.matrix-card {
+    min-height: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.matrix-card-span {
+    min-height: 204px;
+}
+
+.matrix-empty {
+    display: inline-flex;
+    align-items: center;
+    min-height: 52px;
+    color: var(--app-text-muted) !important;
+}
+
+:root[data-theme="dark"] .timetable-matrix thead th,
+:root[data-theme="dark"] .timetable-matrix .day-header {
+    background: #0f172a;
+    color: #e5eefc;
+}
+
+:root[data-theme="dark"] .timetable-matrix .break-header {
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.18), rgba(249, 115, 22, 0.2));
+}
+
+:root[data-theme="dark"] .break-cell {
+    background: linear-gradient(180deg, rgba(120, 53, 15, 0.24), rgba(120, 53, 15, 0.12));
+}
+
+:root[data-theme="dark"] .break-pill {
+    background: rgba(251, 191, 36, 0.16);
+    color: #fde68a !important;
+}
+
+:root[data-theme="dark"] .panel-card.timetable-matrix-wrap,
+:root[data-theme="dark"] .panel-card .table-responsive {
+    background: transparent;
+}
+
+/* Force timetable card text to remain visible in both themes */
+.matrix-card,
+.matrix-card strong,
+.matrix-card span,
+.matrix-card small,
+.matrix-card a,
+.matrix-card .btn {
+    color: #ffffff !important;
+}
+
+.matrix-card .btn-outline-danger {
+    border-color: rgba(248, 113, 113, 0.75) !important;
+    color: #fee2e2 !important;
+}
+
+.matrix-card .btn-outline-danger:hover,
+.matrix-card .btn-outline-danger:focus {
+    background: rgba(127, 29, 29, 0.28) !important;
+    color: #ffffff !important;
+}
+
+.matrix-card .btn-success {
+    color: #ffffff !important;
+}
+
+.multi-select-dropdown {
+    position: relative;
+}
+
+.multi-select-toggle {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    list-style: none;
+}
+
+.multi-select-toggle::after {
+    content: "v";
+    font-size: 0.85rem;
+    color: var(--app-text-muted);
+}
+
+.multi-select-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.4rem);
+    left: 0;
+    right: 0;
+    max-height: 220px;
+    overflow-y: auto;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    background: var(--app-surface-strong);
+    border: 1px solid var(--app-field-border);
+    box-shadow: var(--app-shadow-soft);
+    z-index: 30;
+}
+
+.multi-select-dropdown.is-open .multi-select-menu {
+    display: block;
+}
+
+.multi-select-toggle::marker {
+    content: "";
+}
+
+.multi-select-option {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.55rem 0.65rem;
+    border-radius: 0.8rem;
+    cursor: pointer;
+    color: var(--app-text);
+}
+
+.multi-select-option:hover {
+    background: var(--app-table-hover);
+}
+
+.multi-select-option input {
+    margin: 0;
+}
+
+
+.multi-select-toggle::-webkit-details-marker {
+    display: none;
+}
+
+.multi-select-dropdown[open] .multi-select-menu {
+    display: block;
+}
+
+
+
+
+body .warning-panel {
+    background: linear-gradient(135deg, rgba(255, 237, 213, 0.98), rgba(254, 215, 170, 0.96)) !important;
+    border: 1px solid rgba(234, 88, 12, 0.18) !important;
+}
+
+body .warning-panel .page-kicker,
+body .warning-panel h2,
+body .warning-panel p {
+    color: #7c2d12 !important;
+}
+
+:root[data-theme="dark"] body .warning-panel {
+    background: linear-gradient(135deg, rgba(69, 26, 3, 0.94), rgba(124, 45, 18, 0.9)) !important;
+    border-color: rgba(251, 146, 60, 0.28) !important;
+}
+
+:root[data-theme="dark"] body .warning-panel .page-kicker,
+:root[data-theme="dark"] body .warning-panel h2,
+:root[data-theme="dark"] body .warning-panel p {
+    color: #ffedd5 !important;
+}

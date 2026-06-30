@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero-grid">
+    <div class="panel intro-panel">
+        <span class="eyebrow">Webcam Attendance</span>
+        <h2>Secure institute login with role-based access and timetable-aware attendance.</h2>
+        <p>This Flask application validates institute and course before authentication, then routes admins, faculty, and students to their own dashboards.</p>
+    </div>
+    <div class="panel">
+        <h3>Login</h3>
+        <form action="{{ url_for('auth.login') }}" method="post" class="form-grid">
+            <label>
+                Institute Name
+                <input type="text" name="institute_name" list="institutes" required>
+                <datalist id="institutes">
+                    {% for institute in institutes %}
+                    <option value="{{ institute.name }}"></option>
+                    {% endfor %}
+                </datalist>
+            </label>
+            <label>
+                Course Name
+                <input type="text" name="course_name" list="courses" required>
+                <datalist id="courses">
+                    {% for course in courses %}
+                    <option value="{{ course.name }}"></option>
+                    {% endfor %}
+                </datalist>
+            </label>
+            <label>
+                Email / Username
+                <input type="text" name="identifier" required>
+            </label>
+            <label>
+                Password
+                <input type="password" name="password" required>
+            </label>
+            <button class="button" type="submit">Sign In</button>
+        </form>
+        <div class="hint-card">
+            <strong>Demo seed accounts:</strong>
+            <p>Admin: <code>admin@demo.edu</code> / <code>Admin@123</code></p>
+            <p>Faculty: <code>faculty@demo.edu</code> / <code>Faculty@123</code></p>
+            <p>Student: <code>student@demo.edu</code> / <code>Student@123</code></p>
+        </div>
+    </div>
+</section>
+{% endblock %}

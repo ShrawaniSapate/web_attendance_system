@@ -1,0 +1,69 @@
+{% extends "teacher/layout.html" %}
+{% block teacher_content %}
+<div class="hero-card teacher-hero p-4 p-lg-5 mb-4">
+    <div class="page-kicker mb-2">Teacher Timetable</div>
+    <h1 class="fw-bold mb-2">Full Teaching Schedule</h1>
+    <p class="mb-0 opacity-75">Your weekly lectures are arranged in a row-and-column timetable, with emergency adjustments listed separately.</p>
+</div>
+
+{% if timetable_matrix.rows and timetable_matrix.columns %}
+<div class="panel-card timetable-matrix-wrap mb-4">
+    <div class="table-responsive">
+        <table class="table timetable-matrix mb-0 align-middle">
+            <thead>
+                <tr>
+                    <th class="day-header">Day</th>
+                    {% for column in timetable_matrix.columns %}
+                    <th class="{% if column.is_break %}break-header{% endif %}">{{ column.label }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in timetable_matrix.rows %}
+                <tr>
+                    <th class="day-header">{{ row.day }}</th>
+                    {% for cell in row['cells'] %}
+                    <td colspan="{{ cell['colspan'] }}" class="{% if cell['is_break'] %}break-cell{% endif %}">
+                        {% if cell['entries'] %}
+                            {% for slot in cell['entries'] %}
+                            <div class="matrix-card {{ row.day.lower() }} {% if cell['colspan'] > 1 %}matrix-card-span{% endif %}">
+                                <strong>{{ slot.subject }}</strong>
+                                <span>{{ slot.course }}{% if slot.classroom %} | {{ slot.classroom.name }}{% if slot.classroom.display_division %} ({{ slot.classroom.display_division }}){% endif %}{% endif %}</span>
+                                <a class="btn btn-success btn-sm mt-2" href="{{ url_for('teacher.attendance_room', slot_ref=slot.slot_ref) }}">Start Attendance</a>
+                            </div>
+                            {% endfor %}
+                        {% elif cell['is_break'] %}
+                            <span class="matrix-empty break-pill">Break / Free</span>
+                        {% else %}
+                            <span class="matrix-empty">Free</span>
+                        {% endif %}
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+<div class="panel-card mb-4"><div class="empty-state">No weekly timetable assigned.</div></div>
+{% endif %}
+
+<div class="panel-card">
+    <div class="card-header"><h2 class="h5 mb-0">Emergency Adjustments</h2></div>
+    <div class="card-body p-0">
+        {% for slot in temporary_slots %}
+        <div class="row g-2 p-3 border-bottom align-items-center">
+            <div class="col-md-2"><strong>{{ slot.adjustment_date.strftime('%d %b %Y') }}</strong><div class="small text-muted">{{ slot.day }}</div></div>
+            <div class="col-md-2">{{ slot.subject }}</div>
+            <div class="col-md-2">{{ slot.course }}</div>
+            <div class="col-md-2">{% if slot.classroom %}{{ slot.classroom.name }}{% if slot.classroom.display_division %} ({{ slot.classroom.display_division }}){% endif %}{% else %}-{% endif %}</div>
+            <div class="col-md-2">{{ slot.start_time.strftime('%I:%M %p') }} - {{ slot.end_time.strftime('%I:%M %p') }}</div>
+            <div class="col-md-2"><a class="btn btn-success btn-sm" href="{{ url_for('teacher.attendance_room', slot_ref=slot.slot_ref) }}">Open</a></div>
+        </div>
+        {% else %}
+        <div class="empty-state">No emergency adjustments assigned.</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block body_class %}theme-default auth-scene{% endblock %}
+{% block content %}
+<section class="landing-hero mb-5">
+    <div class="row g-4 align-items-stretch">
+        <div class="col-xl-7">
+            <div class="hero-card h-100 p-4 p-lg-5 login-hero-overlay">
+                <div class="page-kicker mb-3">Smart College Attendance System</div>
+                <h1 class="display-5 fw-bold mb-3">Built for real college workflows with courses, classes, subjects, and timetable-linked attendance.</h1>
+                <p class="lead opacity-75 mb-4">Manage multiple courses, batch-wise students, multi-subject teachers, timetable-aware attendance, emergency lecture adjustments, and college-level reporting from one platform.</p>
+                <div class="hero-grid mb-4">
+                    <div class="hero-chip"><strong><i class="bi bi-diagram-3"></i> College Structure</strong><span>Courses, classes, divisions, teachers, subjects, and students stay linked.</span></div>
+                    <div class="hero-chip"><strong><i class="bi bi-camera-video"></i> Live Capture</strong><span>Teacher webcam marks recognized students only for the active batch.</span></div>
+                    <div class="hero-chip"><strong><i class="bi bi-calendar3"></i> Timetable Aware</strong><span>Attendance opens only during valid weekly or emergency lecture slots.</span></div>
+                    <div class="hero-chip"><strong><i class="bi bi-bar-chart-line"></i> Reports</strong><span>Course-wise, subject-wise, monthly, and defaulter insights are available.</span></div>
+                </div>
+                <div class="workflow-strip">
+                    <div class="workflow-pill"><span>1</span> Register institute</div>
+                    <div class="workflow-pill"><span>2</span> Add courses, classes, and subjects</div>
+                    <div class="workflow-pill"><span>3</span> Add teachers and students</div>
+                    <div class="workflow-pill"><span>4</span> Publish timetable</div>
+                    <div class="workflow-pill"><span>5</span> Start attendance and review reports</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-5">
+            <div class="login-card h-100">
+                <div class="card-body p-4 p-lg-5">
+                    <span class="login-tag mb-3"><i class="bi bi-diagram-3"></i> Role-Based Access</span>
+                    <h2 class="fw-bold mb-2">Choose Login Type</h2>
+                    <p class="text-muted mb-4">Each role opens a focused workspace with its own tools, reports, and highlights.</p>
+                    <div class="d-grid gap-3 mb-4">
+                        <a class="role-card text-decoration-none p-3" href="{{ url_for('auth.role_login_page', role='admin') }}"><div class="d-flex align-items-center gap-3"><span class="role-badge admin"><i class="bi bi-shield-lock"></i></span><div><strong class="d-block">Admin Login</strong><span class="text-muted">Configure courses, classes, teachers, students, timetable, and reports</span></div></div></a>
+                        <a class="role-card text-decoration-none p-3" href="{{ url_for('auth.role_login_page', role='teacher') }}"><div class="d-flex align-items-center gap-3"><span class="role-badge teacher"><i class="bi bi-easel2"></i></span><div><strong class="d-block">Teacher Login</strong><span class="text-muted">Start attendance, track multiple classes, and print reports</span></div></div></a>
+                        <a class="role-card text-decoration-none p-3" href="{{ url_for('auth.role_login_page', role='student') }}"><div class="d-flex align-items-center gap-3"><span class="role-badge student"><i class="bi bi-mortarboard"></i></span><div><strong class="d-block">Student Login</strong><span class="text-muted">Check class timetable, attendance trends, and warnings</span></div></div></a>
+                    </div>
+                    <a class="quick-link d-inline-flex align-items-center gap-2" href="{{ url_for('auth.register_page') }}"><i class="bi bi-building-add"></i> Register New Institute</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

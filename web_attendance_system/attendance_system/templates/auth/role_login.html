@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block body_class %}theme-{{ role }} auth-scene{% endblock %}
+{% block content %}
+<div class="login-shell">
+    <div class="row justify-content-center w-100">
+        <div class="col-lg-6">
+            <div class="login-card">
+                <div class="card-body p-4 p-lg-5">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <div class="page-kicker accent-{{ role }} mb-2">Secure Role Login</div>
+                            <h2 class="fw-bold mb-1">{{ role_meta.title }}</h2>
+                            <p class="text-muted mb-0">{{ role_meta.subtitle }}</p>
+                        </div>
+                        <span class="role-badge {{ role }}">{{ role[0]|upper }}</span>
+                    </div>
+                    <form method="post" action="{{ url_for('auth.role_login', role=role) }}" class="row g-3">
+                        {% if role == 'admin' %}
+                        <div class="col-12">
+                            <label class="form-label">Institute Name</label>
+                            <input class="form-control" type="text" name="institute_name" required minlength="2" maxlength="120" pattern="[A-Za-z0-9][A-Za-z0-9\s&().,'/-]{1,119}" title="Enter a valid institute name.">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Email</label>
+                            <input class="form-control" type="email" name="email" required maxlength="150">
+                        </div>
+                        {% elif role == 'teacher' %}
+                        <div class="col-12">
+                            <label class="form-label">Teacher Name</label>
+                            <input class="form-control" type="text" name="name" required minlength="2" maxlength="100" pattern="[A-Za-z][A-Za-z\s.'-]{1,99}" title="Use letters, spaces, apostrophe, dot, or hyphen only.">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Email</label>
+                            <input class="form-control" type="email" name="email" required maxlength="150">
+                        </div>
+                        {% elif role == 'student' %}
+                        <div class="col-12">
+                            <label class="form-label">Student Name</label>
+                            <input class="form-control" type="text" name="name" required minlength="2" maxlength="100" pattern="[A-Za-z][A-Za-z\s.'-]{1,99}" title="Use letters, spaces, apostrophe, dot, or hyphen only.">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Roll Number</label>
+                            <input class="form-control" type="text" name="roll_number" required minlength="2" maxlength="30" pattern="[A-Za-z0-9/_-]{2,30}" title="Use letters, numbers, slash, underscore, or hyphen only.">
+                        </div>
+                        {% endif %}
+                        <div class="col-12">
+                            <label class="form-label">Password</label>
+                            <input class="form-control" type="password" name="password" required minlength="8">
+                        </div>
+                        <div class="col-12 d-grid mt-2">
+                            <button class="btn btn-primary btn-lg" type="submit">{{ role_meta.button }}</button>
+                        </div>
+                    </form>
+                    <div class="d-flex justify-content-between mt-4 small">
+                        <a href="{{ url_for('auth.login_page') }}">Back to role selection</a>
+                        <a href="{{ url_for('auth.register_page') }}">Register institute</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

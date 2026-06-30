@@ -1,0 +1,73 @@
+﻿{% extends "admin/layout.html" %}
+{% block admin_content %}
+<div class="panel-card mb-4">
+    <div class="card-header"><h2 class="h5 mb-0">Add Student</h2></div>
+    <div class="card-body">
+        <form method="post" action="{{ url_for('admin.create_student') }}" enctype="multipart/form-data" class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Student Name</label>
+                <input class="form-control" name="name" placeholder="Student name" required minlength="2" maxlength="100" pattern="[A-Za-z][A-Za-z\s.'-]{1,99}" title="Use letters, spaces, apostrophe, dot, or hyphen only.">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Roll Number</label>
+                <input class="form-control" name="roll_number" placeholder="Roll number" required minlength="2" maxlength="30" pattern="[A-Za-z0-9/_-]{2,30}" title="Use letters, numbers, slash, underscore, or hyphen only.">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <input class="form-control" name="email" type="email" placeholder="Email" required maxlength="150">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Password</label>
+                <input class="form-control" name="password" type="password" placeholder="Password" required minlength="8" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}" title="Minimum 8 characters with uppercase, lowercase, number, and special character.">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Course</label>
+                <select class="form-select" name="course_id">
+                    <option value="">Select course</option>
+                    {% for course in courses %}
+                    <option value="{{ course.id }}">{{ course.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Class</label>
+                <select class="form-select" name="classroom_id">
+                    <option value="">Select class</option>
+                    {% for classroom in classrooms %}
+                    <option value="{{ classroom.id }}">{{ classroom.name }}{% if classroom.display_division %} ({{ classroom.display_division }}){% endif %}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Face Image</label>
+                <input class="form-control" name="face_image" type="file" accept=".png,.jpg,.jpeg,image/png,image/jpeg" required>
+                <div class="form-text">Upload a clear JPG or PNG image with one visible face.</div>
+            </div>
+            <div class="col-12 d-grid"><button class="btn btn-primary" type="submit">Create Student Profile</button></div>
+        </form>
+    </div>
+</div>
+
+<div class="panel-card">
+    <div class="card-header"><h2 class="h5 mb-0">Update Students</h2></div>
+    <div class="card-body p-0">
+        {% for student in students %}
+        <form method="post" action="{{ url_for('admin.update_student', student_id=student.id) }}" enctype="multipart/form-data" class="row g-2 p-3 border-bottom align-items-center">
+            <div class="col-md-3"><input class="form-control form-control-sm" name="name" value="{{ student.name }}" required minlength="2" maxlength="100" pattern="[A-Za-z][A-Za-z\s.'-]{1,99}" title="Use letters, spaces, apostrophe, dot, or hyphen only."></div>
+            <div class="col-md-2"><input class="form-control form-control-sm" name="roll_number" value="{{ student.roll_number }}" required minlength="2" maxlength="30" pattern="[A-Za-z0-9/_-]{2,30}" title="Use letters, numbers, slash, underscore, or hyphen only."></div>
+            <div class="col-md-3"><input class="form-control form-control-sm" name="email" value="{{ student.email }}" type="email" required maxlength="150"></div>
+            <div class="col-md-2"><select class="form-select form-select-sm" name="course_id"><option value="">Course</option>{% for course in courses %}<option value="{{ course.id }}" {% if student.course_id == course.id %}selected{% endif %}>{{ course.name }}</option>{% endfor %}</select></div>
+            <div class="col-md-2"><select class="form-select form-select-sm" name="classroom_id"><option value="">Class</option>{% for classroom in classrooms %}<option value="{{ classroom.id }}" {% if student.classroom_id == classroom.id %}selected{% endif %}>{{ classroom.name }}{% if classroom.display_division %} ({{ classroom.display_division }}){% endif %}</option>{% endfor %}</select></div>
+            <div class="col-md-2"><input class="form-control form-control-sm" name="password" type="password" placeholder="Password" minlength="8" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}" title="Minimum 8 characters with uppercase, lowercase, number, and special character."></div>
+            <div class="col-12"><input class="form-control form-control-sm" name="face_image" type="file" accept=".png,.jpg,.jpeg,image/png,image/jpeg"></div>
+            <div class="col-12 d-flex gap-2 justify-content-end">
+                <button class="btn btn-sm btn-outline-primary" type="submit">Save Changes</button>
+                <button formaction="{{ url_for('admin.delete_student', student_id=student.id) }}" formmethod="post" class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+            </div>
+        </form>
+        {% else %}
+        <div class="empty-state">No students added yet.</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

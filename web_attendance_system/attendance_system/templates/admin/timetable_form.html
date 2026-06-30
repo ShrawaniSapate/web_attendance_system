@@ -1,0 +1,110 @@
+{% extends "admin/layout.html" %}
+{% block admin_content %}
+<div class="panel-card mb-4">
+    <div class="card-body d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
+        <div>
+            <div class="page-kicker mb-1">Separate Emergency Control</div>
+            <h2 class="h5 mb-1">Need a one-day temporary lecture change?</h2>
+            <p class="mb-0 text-muted">Use the dedicated emergency adjustment page for replacements, extra lectures, or urgent timetable overrides.</p>
+        </div>
+        <a class="btn btn-outline-dark" href="{{ url_for('admin.temporary_adjustments_page') }}">Open Emergency Adjustment</a>
+    </div>
+</div>
+
+<div class="panel-card mb-4">
+    <div class="card-header"><h2 class="h5 mb-0">Create Timetable</h2></div>
+    <div class="card-body">
+        <form method="post" action="{{ url_for('admin.create_timetable') }}" class="row g-3">
+            <div class="col-md-3">
+                <label class="form-label">Subject</label>
+                <select class="form-select" name="subject_id">
+                    <option value="">Select subject</option>
+                    {% for subject in subjects_catalog %}
+                    <option value="{{ subject.id }}">{{ subject.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Teacher</label>
+                <select class="form-select" name="teacher_id" required>
+                    <option value="">Select teacher</option>
+                    {% for teacher in teachers %}
+                    <option value="{{ teacher.id }}">{{ teacher.name }} ({{ teacher.subject }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Day</label>
+                <select class="form-select" name="day" required>
+                    <option value="">Select day</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Start Time</label>
+                <input class="form-control" name="start_time" type="time" required>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">End Time</label>
+                <input class="form-control" name="end_time" type="time" required>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Course</label>
+                <select class="form-select" name="course_id">
+                    <option value="">Select course</option>
+                    {% for course in courses %}
+                    <option value="{{ course.id }}">{{ course.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Class</label>
+                <select class="form-select" name="classroom_id">
+                    <option value="">Select class</option>
+                    {% for classroom in classrooms %}
+                    <option value="{{ classroom.id }}">{{ classroom.name }}{% if classroom.display_division %} ({{ classroom.display_division }}){% endif %}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-12 d-grid"><button class="btn btn-dark" type="submit">Publish Lecture Slot</button></div>
+        </form>
+    </div>
+</div>
+
+<div class="panel-card">
+    <div class="card-header"><h2 class="h5 mb-0">Update Timetable Slots</h2></div>
+    <div class="card-body p-0">
+        {% for entry in timetable %}
+        <form method="post" action="{{ url_for('admin.update_timetable', entry_id=entry.id) }}" class="row g-2 p-3 border-bottom align-items-center">
+            <div class="col-md-3"><select class="form-select form-select-sm" name="subject_id"><option value="">Subject</option>{% for subject in subjects_catalog %}<option value="{{ subject.id }}" {% if entry.subject_id == subject.id %}selected{% endif %}>{{ subject.name }}</option>{% endfor %}</select></div>
+            <div class="col-md-3">
+                <select class="form-select form-select-sm" name="teacher_id" required>
+                    {% for teacher in teachers %}
+                    <option value="{{ teacher.id }}" {% if teacher.id == entry.teacher_id %}selected{% endif %}>{{ teacher.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select class="form-select form-select-sm" name="day" required>
+                    {% for day_name in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] %}
+                    <option value="{{ day_name }}" {% if day_name == entry.day %}selected{% endif %}>{{ day_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2"><input class="form-control form-control-sm" name="start_time" type="time" value="{{ entry.start_time.strftime('%H:%M') }}" required></div>
+            <div class="col-md-2"><input class="form-control form-control-sm" name="end_time" type="time" value="{{ entry.end_time.strftime('%H:%M') }}" required></div>
+            <div class="col-md-4"><select class="form-select form-select-sm" name="course_id"><option value="">Course</option>{% for course in courses %}<option value="{{ course.id }}" {% if entry.course_id == course.id %}selected{% endif %}>{{ course.name }}</option>{% endfor %}</select></div>
+            <div class="col-md-4"><select class="form-select form-select-sm" name="classroom_id"><option value="">Class</option>{% for classroom in classrooms %}<option value="{{ classroom.id }}" {% if entry.classroom_id == classroom.id %}selected{% endif %}>{{ classroom.name }}{% if classroom.display_division %} ({{ classroom.display_division }}){% endif %}</option>{% endfor %}</select></div>
+            <div class="col-md-4 d-grid"><button class="btn btn-sm btn-outline-dark" type="submit">Update Slot</button></div>
+        </form>
+        {% else %}
+        <div class="empty-state">No timetable entries yet.</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

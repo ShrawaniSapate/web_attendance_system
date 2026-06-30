@@ -1,0 +1,63 @@
+{% extends "admin/layout.html" %}
+{% block admin_content %}
+<div class="panel-card mb-4">
+    <div class="card-header"><h2 class="h5 mb-0">Add Teacher</h2></div>
+    <div class="card-body">
+        <p class="text-muted small mb-3">Create the teacher profile here. Actual multi-subject and multi-class teaching load is assigned through timetable and emergency lecture entries.</p>
+        <form method="post" action="{{ url_for('admin.create_teacher') }}" class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Teacher Name</label>
+                <input class="form-control" name="name" placeholder="Teacher name" required minlength="2" maxlength="100" pattern="[A-Za-z][A-Za-z\s.'-]{1,99}" title="Use letters, spaces, apostrophe, dot, or hyphen only.">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Primary Course</label>
+                <select class="form-select" name="course_id">
+                    <option value="">Select course</option>
+                    {% for course in courses %}
+                    <option value="{{ course.id }}">{{ course.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Primary Subject / Specialization</label>
+                <select class="form-select" name="subject_catalog_id">
+                    <option value="">Select subject</option>
+                    {% for subject in subjects_catalog %}
+                    <option value="{{ subject.id }}">{{ subject.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <input class="form-control" name="email" type="email" placeholder="Email" required maxlength="150">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Password</label>
+                <input class="form-control" name="password" type="password" placeholder="Password" required minlength="8" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}" title="Minimum 8 characters with uppercase, lowercase, number, and special character.">
+            </div>
+            <div class="col-12 d-grid"><button class="btn btn-success" type="submit">Create Teacher Profile</button></div>
+        </form>
+    </div>
+</div>
+
+<div class="panel-card">
+    <div class="card-header"><h2 class="h5 mb-0">Update Teachers</h2></div>
+    <div class="card-body p-0">
+        {% for teacher in teachers %}
+        <form method="post" action="{{ url_for('admin.update_teacher', teacher_id=teacher.id) }}" class="row g-2 p-3 border-bottom align-items-center">
+            <div class="col-md-3"><input class="form-control form-control-sm" name="name" value="{{ teacher.name }}" required minlength="2" maxlength="100" pattern="[A-Za-z][A-Za-z\s.'-]{1,99}" title="Use letters, spaces, apostrophe, dot, or hyphen only."></div>
+            <div class="col-md-3"><input class="form-control form-control-sm" name="email" value="{{ teacher.email }}" type="email" required maxlength="150"></div>
+            <div class="col-md-3"><select class="form-select form-select-sm" name="course_id"><option value="">Primary course</option>{% for course in courses %}<option value="{{ course.id }}" {% if teacher.course_id == course.id %}selected{% endif %}>{{ course.name }}</option>{% endfor %}</select></div>
+            <div class="col-md-3"><select class="form-select form-select-sm" name="subject_catalog_id"><option value="">Primary subject</option>{% for subject in subjects_catalog %}<option value="{{ subject.id }}" {% if teacher.subject_catalog_id == subject.id %}selected{% endif %}>{{ subject.name }}</option>{% endfor %}</select></div>
+            <div class="col-md-3"><input class="form-control form-control-sm" name="password" type="password" placeholder="New password" minlength="8" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}" title="Minimum 8 characters with uppercase, lowercase, number, and special character."></div>
+            <div class="col-12 d-flex gap-2 justify-content-end">
+                <button class="btn btn-sm btn-outline-primary" type="submit">Save Changes</button>
+                <button formaction="{{ url_for('admin.delete_teacher', teacher_id=teacher.id) }}" formmethod="post" class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+            </div>
+        </form>
+        {% else %}
+        <div class="empty-state">No teachers added yet.</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

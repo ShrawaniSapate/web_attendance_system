@@ -1,0 +1,85 @@
+{% extends "admin/layout.html" %}
+{% block admin_content %}
+<div class="hero-card admin-hero p-4 p-lg-5 mb-4">
+    <div class="page-kicker mb-2">Institute Timetable</div>
+    <h1 class="fw-bold mb-2">Full Timetable Overview</h1>
+    <p class="mb-0 opacity-75">Browse separate timetable sections for each class so you can review one class schedule at a time.</p>
+</div>
+
+{% if classroom_timetable_sections %}
+<div class="panel-card p-4 mb-4">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
+        <div>
+            <div class="page-kicker mb-1">Quick Navigation</div>
+            <h2 class="h5 mb-0">Jump To Class Timetable</h2>
+        </div>
+        <span class="warning-count">{{ classroom_timetable_sections|length }} section{{ '' if classroom_timetable_sections|length == 1 else 's' }}</span>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        {% for section in classroom_timetable_sections %}
+        <a class="btn btn-outline-dark btn-sm" href="#{{ section.id }}">{{ section.label }}</a>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="d-grid gap-4">
+    {% for section in classroom_timetable_sections %}
+    <section id="{{ section.id }}" class="panel-card p-4">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
+            <div>
+                <div class="page-kicker mb-1">{{ section.course_label }}</div>
+                <h2 class="h4 mb-0">{{ section.label }}</h2>
+            </div>
+            <span class="warning-count">{{ section.entry_count }} lecture{{ '' if section.entry_count == 1 else 's' }}</span>
+        </div>
+
+        {% if section.matrix.rows and section.matrix.columns %}
+        <div class="table-responsive timetable-matrix-wrap">
+            <table class="table timetable-matrix mb-0 align-middle">
+                <thead>
+                    <tr>
+                        <th class="day-header">Day</th>
+                        {% for column in section.matrix.columns %}
+                        <th class="{% if column.is_break %}break-header{% endif %}">{{ column.label }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in section.matrix.rows %}
+                    <tr>
+                        <th class="day-header">{{ row.day }}</th>
+                        {% for cell in row['cells'] %}
+                        <td colspan="{{ cell['colspan'] }}" class="{% if cell['is_break'] %}break-cell{% endif %}">
+                            {% if cell['entries'] %}
+                                {% for slot in cell['entries'] %}
+                                <div class="matrix-card {{ row.day.lower() }} {% if cell['colspan'] > 1 %}matrix-card-span{% endif %}">
+                                    <strong>{{ slot.subject }}</strong>
+                                    <span>{{ slot.teacher.name }}</span>
+                                    <small>{{ slot.start_time.strftime('%I:%M %p') }} - {{ slot.end_time.strftime('%I:%M %p') }}</small>
+                                    <form method="post" action="{{ url_for('admin.delete_timetable', entry_id=slot.id) }}" class="mt-2">
+                                        <button class="btn btn-outline-danger btn-sm" type="submit">Remove Lecture</button>
+                                    </form>
+                                </div>
+                                {% endfor %}
+                            {% elif cell['is_break'] %}
+                                <span class="matrix-empty break-pill">Break / Free</span>
+                            {% else %}
+                                <span class="matrix-empty">Free</span>
+                            {% endif %}
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-state">No timetable entries available yet for this class.</div>
+        {% endif %}
+    </section>
+    {% endfor %}
+</div>
+{% else %}
+<div class="panel-card"><div class="empty-state">No classes or timetable entries available yet.</div></div>
+{% endif %}
+{% endblock %}

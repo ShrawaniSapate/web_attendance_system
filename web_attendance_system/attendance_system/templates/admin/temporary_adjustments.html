@@ -1,0 +1,116 @@
+{% extends "admin/layout.html" %}
+{% block admin_content %}
+<div class="hero-card admin-hero p-4 p-lg-5 mb-4">
+    <div class="page-kicker mb-2">Emergency Timetable Control</div>
+    <h1 class="fw-bold mb-2">Temporary Lecture Adjustments</h1>
+    <p class="mb-0 opacity-75">Create one-day overrides for emergencies, replacements, extra lectures, or room/time changes without editing the weekly timetable.</p>
+</div>
+
+<div class="panel-card mb-4">
+    <div class="card-header"><h2 class="h5 mb-0">Add Emergency Adjustment</h2></div>
+    <div class="card-body">
+        <form method="post" action="{{ url_for('admin.create_temporary_adjustment') }}" class="row g-3">
+            <div class="col-md-3">
+                <label class="form-label">Subject</label>
+                <select class="form-select" name="subject_id" required>
+                    <option value="">Select subject</option>
+                    {% for subject in subjects_catalog %}
+                    <option value="{{ subject.id }}">{{ subject.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Teacher</label>
+                <select class="form-select" name="teacher_id" required>
+                    <option value="">Select teacher</option>
+                    {% for teacher in teachers %}
+                    <option value="{{ teacher.id }}">{{ teacher.name }} ({{ teacher.subject }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Date</label>
+                <input class="form-control" name="adjustment_date" type="date" required>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Start Time</label>
+                <input class="form-control" name="start_time" type="time" required>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">End Time</label>
+                <input class="form-control" name="end_time" type="time" required>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Course</label>
+                <select class="form-select" name="course_id" required>
+                    <option value="">Select course</option>
+                    {% for course in courses %}
+                    <option value="{{ course.id }}">{{ course.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Class</label>
+                <select class="form-select" name="classroom_id" required>
+                    <option value="">Select class</option>
+                    {% for classroom in classrooms %}
+                    <option value="{{ classroom.id }}">{{ classroom.name }}{% if classroom.display_division %} ({{ classroom.display_division }}){% endif %}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Reason / Note</label>
+                <input class="form-control" name="note" placeholder="Emergency replacement, guest lecture, room issue, exam reschedule">
+            </div>
+            <div class="col-12 d-grid"><button class="btn btn-primary" type="submit">Save Emergency Adjustment</button></div>
+        </form>
+    </div>
+</div>
+
+<div class="panel-card mb-4">
+    <div class="card-header"><h2 class="h5 mb-0">Today's Emergency Adjustments</h2></div>
+    <div class="card-body p-0">
+        {% set today_entries = temporary_adjustments | selectattr('adjustment_date', 'equalto', today_date) | list %}
+        {% for entry in today_entries %}
+        <div class="row g-2 p-3 border-bottom align-items-center">
+            <div class="col-md-2"><strong>{{ entry.adjustment_date.strftime('%d %b %Y') }}</strong><div class="small text-muted">{{ entry.day }}</div></div>
+            <div class="col-md-2">{{ entry.subject }}</div>
+            <div class="col-md-2">{{ entry.teacher.name }}</div>
+            <div class="col-md-2">{{ entry.start_time.strftime('%I:%M %p') }} - {{ entry.end_time.strftime('%I:%M %p') }}</div>
+            <div class="col-md-2">{{ entry.course }}{% if entry.classroom %}<div class="small text-muted">{{ entry.classroom.name }}{% if entry.classroom.display_division %} ({{ entry.classroom.display_division }}){% endif %}</div>{% endif %}</div>
+            <div class="col-md-1 small text-muted">{{ entry.note or '-' }}</div>
+            <div class="col-md-1 d-grid">
+                <form method="post" action="{{ url_for('admin.delete_temporary_adjustment', entry_id=entry.id) }}">
+                    <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+        {% else %}
+        <div class="empty-state">No emergency adjustments for today.</div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="panel-card">
+    <div class="card-header"><h2 class="h5 mb-0">All Upcoming Emergency Adjustments</h2></div>
+    <div class="card-body p-0">
+        {% for entry in temporary_adjustments %}
+        <div class="row g-2 p-3 border-bottom align-items-center">
+            <div class="col-md-2"><strong>{{ entry.adjustment_date.strftime('%d %b %Y') }}</strong><div class="small text-muted">{{ entry.day }}</div></div>
+            <div class="col-md-2">{{ entry.subject }}</div>
+            <div class="col-md-2">{{ entry.teacher.name }}</div>
+            <div class="col-md-2">{{ entry.start_time.strftime('%I:%M %p') }} - {{ entry.end_time.strftime('%I:%M %p') }}</div>
+            <div class="col-md-2">{{ entry.course }}{% if entry.classroom %}<div class="small text-muted">{{ entry.classroom.name }}{% if entry.classroom.display_division %} ({{ entry.classroom.display_division }}){% endif %}</div>{% endif %}</div>
+            <div class="col-md-1 small text-muted">{{ entry.note or '-' }}</div>
+            <div class="col-md-1 d-grid">
+                <form method="post" action="{{ url_for('admin.delete_temporary_adjustment', entry_id=entry.id) }}">
+                    <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+        {% else %}
+        <div class="empty-state">No emergency adjustments added yet.</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

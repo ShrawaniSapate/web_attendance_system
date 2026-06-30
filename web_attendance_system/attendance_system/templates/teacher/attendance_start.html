@@ -1,0 +1,35 @@
+{% extends "teacher/layout.html" %}
+{% block teacher_content %}
+<div class="hero-card teacher-hero p-4 p-lg-5 mb-4">
+    <div class="page-kicker mb-2">Start Attendance</div>
+    <h1 class="fw-bold mb-2">Select a Lecture Slot</h1>
+    <p class="mb-0 opacity-75">Open any assigned lecture and start the live attendance session for the correct course and class batch.</p>
+</div>
+
+<div class="panel-card">
+    <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <h2 class="h5 mb-0">Assigned Lecture Slots and Emergency Adjustments</h2>
+        <span class="badge text-bg-light">Today: {{ today }}</span>
+    </div>
+    <div class="table-responsive">
+        <table class="table mb-0 align-middle">
+            <thead><tr><th>Type</th><th>Subject</th><th>Day / Date</th><th>Time</th><th>Course</th><th>Class</th><th>Action</th></tr></thead>
+            <tbody>
+                {% for slot in attendance_slots %}
+                <tr>
+                    <td>{% if slot.slot_kind == 'emergency' %}<span class="badge text-bg-warning">Emergency</span>{% else %}<span class="badge text-bg-light">Weekly</span>{% endif %}</td>
+                    <td>{{ slot.subject }}</td>
+                    <td>{{ slot.day }}{% if slot.slot_kind == 'emergency' %}<div class="small text-muted">{{ slot.adjustment_date.strftime('%d %b %Y') }}</div>{% endif %}</td>
+                    <td>{{ slot.start_time.strftime('%I:%M %p') }} - {{ slot.end_time.strftime('%I:%M %p') }}</td>
+                    <td>{{ slot.course }}</td>
+                    <td>{% if slot.classroom %}{{ slot.classroom.name }}{% if slot.classroom.display_division %} ({{ slot.classroom.display_division }}){% endif %}{% else %}-{% endif %}</td>
+                    <td><a class="btn btn-success btn-sm" href="{{ url_for('teacher.attendance_room', slot_ref=slot.slot_ref) }}">Start Attendance</a></td>
+                </tr>
+                {% else %}
+                <tr><td colspan="7" class="empty-state">No timetable or emergency lecture slot assigned.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-9">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h2 class="h5 mb-0">Attendance Room</h2>
+                {% if slot %}<span class="badge bg-primary">{{ slot.subject }} | {{ slot.day }} {{ slot.start_time.strftime('%H:%M') }}-{{ slot.end_time.strftime('%H:%M') }}</span>{% if slot.classroom %}<span class="badge bg-secondary">{{ slot.course }} | {{ slot.classroom.name }}{% if slot.classroom.display_division %} ({{ slot.classroom.display_division }}){% endif %}</span>{% endif %}{% if slot.slot_kind == 'emergency' %}<span class="badge bg-warning text-dark">Emergency Adjustment</span>{% endif %}{% endif %}
+            </div>
+            <div class="card-body">
+                {% if slot %}
+                <div class="row g-4 align-items-start">
+                    <div class="col-lg-7">
+                        <div class="camera-stage camera-stage-lg mb-3">
+                            <video id="teacher-video" class="webcam-frame webcam-frame-lg" autoplay playsinline muted></video>
+                            <canvas id="attendance-overlay" class="attendance-overlay"></canvas>
+                        </div>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <button class="btn btn-primary" data-attendance-slot="{{ slot_ref or slot.slot_ref }}" id="start-attendance-btn">Start Live Attendance</button>
+                            <button class="btn btn-outline-danger" id="stop-attendance-btn" type="button" disabled>Stop Attendance</button>
+                            <a class="btn btn-outline-secondary" href="{{ url_for('teacher.dashboard') }}">Back</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="alert alert-info mb-3">The browser webcam captures frames. The backend processes each frame and marks only the students who belong to this lecture's mapped course and class.</div>
+                        <pre id="attendance-result" class="result-box mb-0">Ready to start live scanning.</pre>
+                    </div>
+                </div>
+                {% else %}
+                <p class="text-muted mb-0">No timetable slot selected.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

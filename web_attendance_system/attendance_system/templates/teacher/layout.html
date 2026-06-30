@@ -1,0 +1,23 @@
+﻿{% extends "base.html" %}
+{% block body_class %}theme-teacher{% endblock %}
+{% block content %}
+<div class="admin-shell row g-4">
+    <div class="col-lg-3 col-xl-2">
+        <aside class="admin-sidebar panel-card">
+            <div class="admin-sidebar-head">
+                <div class="page-kicker mb-1">Teacher Menu</div>
+                <h2 class="h5 mb-0">Workspace</h2>
+            </div>
+            <nav class="admin-nav d-grid gap-2">
+                <a class="admin-nav-link {% if active_page == 'dashboard' %}active{% endif %}" href="{{ url_for('teacher.dashboard') }}">Overview</a>
+                <a class="admin-nav-link {% if active_page == 'timetable' %}active{% endif %}" href="{{ url_for('teacher.view_timetable') }}">View Timetable</a>
+                <a class="admin-nav-link {% if active_page == 'start_attendance' %}active{% endif %}" href="{{ url_for('teacher.start_attendance') }}">Start Attendance</a>
+                <a class="admin-nav-link {% if active_page == 'attendance_report' %}active{% endif %}" href="{{ url_for('teacher.attendance_report') }}">Attendance Report</a>
+            </nav>
+        </aside>
+    </div>
+    <div class="col-lg-9 col-xl-10">
+        {% block teacher_content %}{% endblock %}
+    </div>
+</div>
+{% endblock %}

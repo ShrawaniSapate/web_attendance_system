@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white"><h2 class="h5 mb-0">Assigned Timetable</h2></div>
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead><tr><th>Subject</th><th>Day</th><th>Time</th><th>Action</th></tr></thead>
+                    <tbody>
+                        {% for slot in timetable %}
+                        <tr>
+                            <td>{{ slot.subject }}</td>
+                            <td>{{ slot.day }}</td>
+                            <td>{{ slot.start_time.strftime('%H:%M') }} - {{ slot.end_time.strftime('%H:%M') }}</td>
+                            <td><a class="btn btn-primary btn-sm" href="{{ url_for('teacher.attendance_room', slot_id=slot.id) }}">Start Attendance</a></td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="4" class="text-center text-muted py-4">No timetable assigned.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <h2 class="h5">Teacher Profile</h2>
+                <p class="mb-2"><strong>{{ teacher.name }}</strong></p>
+                <p class="mb-2">Email: {{ teacher.email }}</p>
+                <p class="mb-0">Subject: {{ teacher.subject }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-header bg-white"><h2 class="h5 mb-0">Subject Summary</h2></div>
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead><tr><th>Subject</th><th>Present Marks</th></tr></thead>
+                    <tbody>
+                        {% for row in subject_summary %}
+                        <tr><td>{{ row.subject }}</td><td>{{ row.present_count }}</td></tr>
+                        {% else %}
+                        <tr><td colspan="2" class="text-center text-muted py-4">No attendance records yet.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white"><h2 class="h5 mb-0">Attendance Records</h2></div>
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead><tr><th>Student</th><th>Subject</th><th>Date</th><th>Time</th><th>Status</th></tr></thead>
+                    <tbody>
+                        {% for row in records %}
+                        <tr>
+                            <td>{{ row.student.name }}</td>
+                            <td>{{ row.subject }}</td>
+                            <td>{{ row.date }}</td>
+                            <td>{{ row.time.strftime('%H:%M') }}</td>
+                            <td><span class="badge bg-success">{{ row.status }}</span></td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="5" class="text-center text-muted py-4">No attendance yet.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
